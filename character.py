@@ -10,10 +10,11 @@ class Character(Combat):
     def attack(self):
         roll = random.randint(1, self.attack_limit)
         if self.weapon == 'sword':
-            roll += 1
+            roll += 4
         elif self.weapon == 'axe':
             roll +=2
-
+        elif self.weapon == 'bow':
+            roll +=3
         return roll > 4
     def get_weapon(self):
         weapon_choice = input('Weapon > [S]word, [A]xe, or [B]ow: ').lower()

@@ -28,10 +28,10 @@ class Game():
                     print("You avoided the attack!")
                 else:
                     print('You got hit!')
-                    self.player.hit_points -1
+                    self.player.hit_points -=1
             else:
                 print("{} hit you for 1 point".format(self.monster))
-                self.player.hit_points -1
+                self.player.hit_points -=1
         else:
             print("{} isnt attacking this turn".format(self.monster))
 
@@ -44,7 +44,7 @@ class Game():
                 if self.monster.dodge():
                     print("{} dodged your attack".format(self.monster))
                 else:
-                    if self.player.leveled_up():
+                    if self.player.leveled_up() or self.player.weapon == 'sword':
                         self.monster.hit_points -=2
                     else:
                         self.monster.hit_points -=1
@@ -62,8 +62,11 @@ class Game():
     def clean_up(self):
         if self.monster.hit_points <= 0:
             self.player.xp += self.monster.xp
+            print('\n' + '**  --  **')
             print('You killed {}!'.format(self.monster))
+            print('**  --  **'+ '\n')
             self.monster = self.get_next_monster()
+            print('Wild {} has appeared!'.format(self.monster))
 
 
     def __init__(self):
