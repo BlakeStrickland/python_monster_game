@@ -38,14 +38,14 @@ class Goblin(Monster):
 class Troll(Monster):
     min_hit_points = 15
     max_hit_points = 20
-    min_xp = 2
-    max_xp = 9
+    min_xp = 7
+    max_xp = 13
     sound = 'growl'
 
 class Dragon(Monster):
     min_hit_points = 20
     max_hit_points = 35
-    min_xp = 6
+    min_xp = 20
     max_xp = 100
     sound = 'raaaaaaar'
     dodge_limit = 6

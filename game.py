@@ -49,7 +49,10 @@ class Game():
                     print("{} dodged your attack".format(self.monster))
                 else:
                     if self.player.weapon == 'sword':
-                        self.monster.hit_points -=4
+                        self.monster.hit_points -=3
+                        print("You hit {} {} for {} damage".format(self.monster.color.title(), self.monster.__class__.__name__, 2))
+                    elif self.player.weapon == 'bow':
+                        self.monster.hit_points -=5
                         print("You hit {} {} for {} damage".format(self.monster.color.title(), self.monster.__class__.__name__, 2))
                     else:
                         self.monster.hit_points -=1
@@ -67,7 +70,7 @@ class Game():
     def clean_up(self):
         if self.monster.hit_points <= 0:
             self.player.xp += self.monster.xp
-            if self.player.xp % 10 == 0:
+            if self.player.xp > 10:
                 self.player.hit_points = 20
             print('\n' + '**  --  **')
             print('You killed {} {}!'.format(self.monster.color.title(), self.monster.__class__.__name__))
