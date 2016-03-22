@@ -5,7 +5,7 @@ from combat import Combat
 class Character(Combat):
     attack_limit = 10
     xp = 0
-    base_hit_points = 10
+    base_hit_points = 20
 
     def attack(self):
         roll = random.randint(1, self.attack_limit)
@@ -44,4 +44,5 @@ class Character(Combat):
             self.hit_points += 1
 
     def leveled_up(self):
-        return self.xp >= 5
+        if self.xp > 10:
+            self.hit_points = self.base_hit_points

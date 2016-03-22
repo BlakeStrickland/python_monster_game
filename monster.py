@@ -23,25 +23,28 @@ class Monster(Combat):
                                                  self.__class__.__name__,
                                                  self.hit_points,
                                                  self.xp)
-
     def battle_cry(self):
         return self.sound.upper()
 
 class Goblin(Monster):
-    max_hit_points = 3
-    max_xp = 2
+    max_hit_points = 10
+    max_xp = 4
     sound= 'squeek'
+    def attack(self):
+        attack_limit = 6
+        roll = random.randint(1, self.attack_limit)
+        return roll > 2
 
 class Troll(Monster):
-    min_hit_points = 2
-    max_hit_points = 5
+    min_hit_points = 5
+    max_hit_points = 15
     min_xp = 2
-    max_xp = 6
+    max_xp = 9
     sound = 'growl'
 
 class Dragon(Monster):
-    min_hit_points = 5
-    max_hit_points = 10
+    min_hit_points = 20
+    max_hit_points = 30
     min_xp = 6
-    max_xp = 10
+    max_xp = 100
     sound = 'raaaaaaar'

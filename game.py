@@ -18,37 +18,41 @@ class Game():
         try:
             return self.monsters.pop(0)
         except IndexError:
-            return None
-
+            pass
     def monster_turn(self):
-        if self.monster.attack():
-            print("{} is attacking!".format(self.monster))
-            if input("Dodge Y/n :").lower() == 'y':
+        try:
+            if self.monster.attack():
+                print("{} {} is attacking!".format(self.monster.color, self.monster.__class__.__name__))
                 if self.player.dodge():
                     print("You avoided the attack!")
                 else:
-                    print('You got hit!')
-                    self.player.hit_points -=1
+                    print('You could not avoid the hit!')
+                    if self.monster.__class__.__name__ == 'dragon':
+                        self.player.hit_points -=3
+                    else:
+                        self.player.hit_points -=1
+
             else:
-                print("{} hit you for 1 point".format(self.monster))
-                self.player.hit_points -=1
-        else:
-            print("{} isnt attacking this turn".format(self.monster))
+                print("{} {}'s attack missed!'".format(self.monster.color.title(), self.monster.__class__.__name__))
+        except AttributeError:
+            print("You have slayed all the beasts!")
 
 
     def player_turn(self):
         player_choice = input("[A]ttack, [R]est, [Q]uit: ").lower()
+        print('\n')
         if player_choice == 'a':
-            print('You\'re attacking {}'.format(self.monster))
+            print('You\'re attacking {} {}'.format(self.monster.color, self.monster.__class__.__name__))
             if self.player.attack():
                 if self.monster.dodge():
                     print("{} dodged your attack".format(self.monster))
                 else:
-                    if self.player.leveled_up() or self.player.weapon == 'sword':
+                    if self.player.weapon == 'sword':
                         self.monster.hit_points -=2
+                        print("You hit {} {} for {} damage".format(self.monster.color.title(), self.monster.__class__.__name__, 2))
                     else:
                         self.monster.hit_points -=1
-                    print("You hit {}; with your {}".format(self.monster, self.player.weapon))
+                        print("You hit {} {} for {} damage".format(self.monster.color.title(), self.monster.__class__.__name__, 1))
             else:
                 print("You missed!")
         elif player_choice == 'r':
@@ -63,10 +67,13 @@ class Game():
         if self.monster.hit_points <= 0:
             self.player.xp += self.monster.xp
             print('\n' + '**  --  **')
-            print('You killed {}!'.format(self.monster))
-            print('**  --  **'+ '\n')
+            print('You killed {} {}!'.format(self.monster.color.title(), self.monster.__class__.__name__))
+            print('You gained {} xp!'.format(self.monster.xp))
+            print('**  --  **'+ '\n'
+            )
             self.monster = self.get_next_monster()
-            print('Wild {} has appeared!'.format(self.monster))
+            if self.monster != None:
+                print('Wild {} has appeared!'.format(self.monster))
 
 
     def __init__(self):
@@ -75,10 +82,11 @@ class Game():
         while self.player.hit_points and (self.monster or self.monsters):
             print('\n'+'='*20)
             print(self.player)
-            self.monster_turn()
+            print(self.monster)
             print('-'*20)
             self.player_turn()
             self.clean_up()
+            self.monster_turn()
             print('\n'+'='*20)
         if self.player.hit_points:
             print('You win!')
