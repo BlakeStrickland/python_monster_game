@@ -19,6 +19,7 @@ class Game():
             return self.monsters.pop(0)
         except IndexError:
             pass
+
     def monster_turn(self):
         try:
             if self.monster.attack():
@@ -27,8 +28,8 @@ class Game():
                     print("You avoided the attack!")
                 else:
                     print('You could not avoid the hit!')
-                    if self.monster.__class__.__name__ == 'dragon':
-                        self.player.hit_points -=3
+                    if self.monster.__class__.__name__ == 'Dragon':
+                        self.player.hit_points -=2
                     else:
                         self.player.hit_points -=1
 
@@ -48,7 +49,7 @@ class Game():
                     print("{} dodged your attack".format(self.monster))
                 else:
                     if self.player.weapon == 'sword':
-                        self.monster.hit_points -=2
+                        self.monster.hit_points -=4
                         print("You hit {} {} for {} damage".format(self.monster.color.title(), self.monster.__class__.__name__, 2))
                     else:
                         self.monster.hit_points -=1
@@ -66,11 +67,12 @@ class Game():
     def clean_up(self):
         if self.monster.hit_points <= 0:
             self.player.xp += self.monster.xp
+            if self.player.xp % 10 == 0:
+                self.player.hit_points = 20
             print('\n' + '**  --  **')
             print('You killed {} {}!'.format(self.monster.color.title(), self.monster.__class__.__name__))
             print('You gained {} xp!'.format(self.monster.xp))
-            print('**  --  **'+ '\n'
-            )
+            print('**  --  **'+ '\n')
             self.monster = self.get_next_monster()
             if self.monster != None:
                 print('Wild {} has appeared!'.format(self.monster))
@@ -79,7 +81,7 @@ class Game():
     def __init__(self):
         self.set_up()
 
-        while self.player.hit_points and (self.monster or self.monsters):
+        while self.player.hit_points > 0 and (self.monster or self.monsters):
             print('\n'+'='*20)
             print(self.player)
             print(self.monster)
@@ -88,9 +90,7 @@ class Game():
             self.clean_up()
             self.monster_turn()
             print('\n'+'='*20)
-        if self.player.hit_points:
-            print('You win!')
-        elif self.monsters or self.monster:
+        if self.monsters or self.monster:
             print('You lose :(')
         sys.exit()
 Game()

@@ -36,15 +36,25 @@ class Goblin(Monster):
         return roll > 2
 
 class Troll(Monster):
-    min_hit_points = 5
-    max_hit_points = 15
+    min_hit_points = 15
+    max_hit_points = 20
     min_xp = 2
     max_xp = 9
     sound = 'growl'
 
 class Dragon(Monster):
     min_hit_points = 20
-    max_hit_points = 30
+    max_hit_points = 35
     min_xp = 6
     max_xp = 100
     sound = 'raaaaaaar'
+    dodge_limit = 6
+    attack_limit = 6
+
+    def dodge(self):
+        roll = random.randint(1, self.dodge_limit)
+        return roll > 2
+
+    def attack(self):
+        roll = random.randint(1, self.attack_limit)
+        return roll > 2

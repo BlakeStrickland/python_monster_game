@@ -43,6 +43,6 @@ class Character(Combat):
         if self.hit_points < self.base_hit_points:
             self.hit_points += 1
 
-    def leveled_up(self):
+    def level_up(self):
         if self.xp > 10:
             self.hit_points = self.base_hit_points
