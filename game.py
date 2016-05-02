@@ -27,7 +27,7 @@ class Game():
         try:
             return self.monsters.pop(0)
         except IndexError:
-            pass
+            print("Game Over")
 
     def monster_turn(self):
         try:
