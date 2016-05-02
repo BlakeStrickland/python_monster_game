@@ -32,9 +32,9 @@ class Game():
     def monster_turn(self):
         try:
             if self.monster.attack():
-                print("{} {} is attacking!").format(
+                print("{} {} is attacking!".format(
                     self.monster.color.title(),
-                    self.monster.__class__.__name__)
+                    self.monster.__class__.__name__))
                 if self.player.dodge():
                     print("You avoided the attack!")
                 else:
@@ -56,7 +56,8 @@ class Game():
         print('\n')
         if player_choice == 'a':
             print('You\'re attacking {} {}'.format(
-                self.monster.color, self.monster.__class__.__name__))
+                self.monster.color,
+                self.monster.__class__.__name__))
             if self.player.attack():
                 if self.monster.dodge():
                     print("{} dodged your attack".format(self.monster))
@@ -85,42 +86,34 @@ class Game():
         else:
             self.player_turn()
 
-    def print_kills_and_experience(self):
-        print('\n' + '**  --  **')
-        print('You killed {} {}!'.format(
-            self.monster.color.title(), self.monster.__class__.__name__))
-        print('You gained {} xp!'.format(self.monster.xp))
-        print('**  --  **' + '\n')
-
     def clean_up(self):
         if self.monster.hit_points <= 0:
             self.player.xp += self.monster.xp
             if self.player.xp > 15:
                 self.player.hit_points += 5
                 self.player.hit_points = self.player.base_hit_points
-            self.print_kills_and_experience()
+            print('\n' + '**  --  **')
+            print('You killed {} {}!'.format(
+                self.monster.color.title(),
+                self.monster.__class__.__name__))
+            print('You gained {} xp!'.format(self.monster.xp))
+            print('**  --  **' + '\n')
             self.monster = self.get_next_monster()
             if self.monster is not None:
                 print('Wild {} has appeared!'.format(self.monster))
 
-    def print_start(self):
-        print('\n'+'='*20)
-        print(self.player)
-        print(self.monster)
-        print('-'*20)
-
-    def clear_screen(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-
     def __init__(self):
         self.set_up()
         while self.player.hit_points > 0 and (self.monster or self.monsters):
-            self.print_start()
+            print('\n'+'='*20)
+            print(self.player)
+            print(self.monster)
+            print('-'*20)
             self.player_turn()
-            self.clear_screen()
+            os.system('cls' if os.name == 'nt' else 'clear')
             self.clean_up()
             self.monster_turn()
         if self.monsters or self.monster:
-            print('You have been defeated')
+            print('You lose :(')
         sys.exit()
 Game()
