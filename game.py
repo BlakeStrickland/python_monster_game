@@ -41,6 +41,8 @@ class Game():
                     print('You could not avoid the hit!')
                     if self.monster.__class__.__name__ == 'Dragon':
                         self.player.hit_points -= 2
+                        if self.monster.hit_points < 15:
+                            print("You cannot win!!!!")
                     else:
                         self.player.hit_points -= 1
 
@@ -54,7 +56,7 @@ class Game():
     def player_turn(self):
         player_choice = input("[A]ttack, [R]est, [Q]uit: ").lower()
         print('\n')
-        if player_choice == 'a':
+        if player_choice == 'a' or player_choice == 'attack':
             print('You\'re attacking {} {}'.format(
                 self.monster.color,
                 self.monster.__class__.__name__))
