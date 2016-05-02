@@ -2,6 +2,7 @@ import random
 
 from combat import Combat
 
+
 class Character(Combat):
     attack_limit = 10
     xp = 0
@@ -16,6 +17,7 @@ class Character(Combat):
         elif self.weapon == 'bow':
             roll += 12
         return roll > 4
+
     def get_weapon(self):
         weapon_choice = input('Weapon > [S]word, [A]xe, or [B]ow: ').lower()
 
@@ -37,6 +39,7 @@ class Character(Combat):
 
         for key, value in kwargs.items():
             setattr(self, key, value)
+
     def __str__(self):
         return "{}, HP: {}, XP: {}".format(self.name, self.hit_points, self.xp)
 
