@@ -102,13 +102,16 @@ class Game():
             if self.monster is not None:
                 print('Wild {} has appeared!'.format(self.monster))
 
+    def print_turns(self):
+        print('\n'+'='*20)
+        print(self.player)
+        print(self.monster)
+        print('-'*20)
+
     def __init__(self):
         self.set_up()
         while self.player.hit_points > 0 and (self.monster or self.monsters):
-            print('\n'+'='*20)
-            print(self.player)
-            print(self.monster)
-            print('-'*20)
+            self.print_turns()
             self.player_turn()
             os.system('cls' if os.name == 'nt' else 'clear')
             self.clean_up()
