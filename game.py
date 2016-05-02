@@ -58,7 +58,7 @@ class Game():
         print('\n')
         if player_choice == 'a' or player_choice == 'attack':
             print('You\'re attacking {} {}'.format(
-                self.monster.color,
+                self.monster.color.title(),
                 self.monster.__class__.__name__))
             if self.player.attack():
                 if self.monster.dodge():
