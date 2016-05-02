@@ -12,9 +12,9 @@ class Character(Combat):
         if self.weapon == 'sword':
             roll += 4
         elif self.weapon == 'axe':
-            roll +=2
+            roll += 5
         elif self.weapon == 'bow':
-            roll +=3
+            roll += 12
         return roll > 4
     def get_weapon(self):
         weapon_choice = input('Weapon > [S]word, [A]xe, or [B]ow: ').lower()
@@ -33,6 +33,7 @@ class Character(Combat):
         self.name = input('Name > ')
         self.weapon = self.get_weapon()
         self.hit_points = self.base_hit_points
+        self.level = 0
 
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -46,3 +47,4 @@ class Character(Combat):
     def level_up(self):
         if self.xp > 10:
             self.hit_points = self.base_hit_points
+            self.level += 1
