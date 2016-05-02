@@ -45,7 +45,7 @@ class Game():
                         self.player.hit_points -= 1
 
             else:
-                print("{} {}'s attack missed!'".format(
+                print("{} {}'s attack missed!".format(
                     self.monster.color.title(),
                     self.monster.__class__.__name__))
         except AttributeError:
